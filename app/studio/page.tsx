@@ -16,6 +16,7 @@ const Studio = async () => {
 
   return (
     <div>
+      <Breadcrumbs />
       <CreateForm />
       <FolderList />
       <LooseCanvasList />

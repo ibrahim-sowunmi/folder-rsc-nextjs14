@@ -17,6 +17,7 @@ model User {
   sessions      Session[]
   canvases      Canvas[]
   folders       Folder[]
+  
   // Optional for WebAuthn support
   Authenticator Authenticator[]
 

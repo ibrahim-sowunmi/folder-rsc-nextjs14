@@ -11,8 +11,6 @@ export default function StudioLayout({
   }
 }) {
 
-  console.log("whaaaat", params)
-
   return (
     <>
       <Breadcrumbs params={params} />

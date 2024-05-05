@@ -18,7 +18,6 @@ const LooseCanvasList = async () => {
   const canvases = await getLooseCanvasForUser(user.id);
   return (
     <>
-      canvases
       <ul>
         {canvases.map((canvas: Canvas) => {
           return (

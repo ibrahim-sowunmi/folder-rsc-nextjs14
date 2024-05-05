@@ -8,29 +8,24 @@ export const createFolderV2 = async (formData: { get: (arg0: string) => void; })
   const user = await getSessionUser()
 
   const id = formData.get("id")
-  console.log("the id is", id)
 
   if (id) {
-    const newSubFolder = await prisma.folder.create({
+    await prisma.folder.create({
       data: {
         name: "New Subfolder Name",
         isPublic: 'private',
         UserId: user.id,
-        parentId: id 
+        parentId: id
       }
     });
-
-    console.log("child folder created")
   } else {
-    const newFolder = await prisma.folder.create({
+    await prisma.folder.create({
       data: {
         name: "My New Folder",
         isPublic: 'private',
         UserId: user.id,
       }
     });
-
-    console.log("Root folder created")
   }
 
   revalidatePath('/studio')
@@ -68,7 +63,6 @@ export async function getAllFoldersForUser(id: String, folderId?: String) {
         createdAt: 'asc'
       },
     });
-    console.log("folder id", folderId)
   } else {
     folders = await prisma.folder.findMany({
       where: {

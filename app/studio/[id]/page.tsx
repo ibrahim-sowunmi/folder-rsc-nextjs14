@@ -18,7 +18,7 @@ const Folder = async ({ params }) => {
 
   return (
     <div>
-      <div>
+      <div>        
         <CreateForm params={params} />
         <FolderList params={params} />
         <CanvasList params={params} />

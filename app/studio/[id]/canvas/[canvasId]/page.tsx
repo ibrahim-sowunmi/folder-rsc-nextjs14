@@ -14,7 +14,6 @@ const Canvas = async ({ params }) => {
     )
   }
 
-  console.log(params)
   const canvasData = await prisma.canvas.findUnique({
     where: {
       id: params.canvasId

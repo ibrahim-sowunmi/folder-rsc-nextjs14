@@ -4,7 +4,6 @@ import CreateCanvas from './CreateCanvas'
 
 
 const CreateForm = async ({ params }) => {
-  console.log(params)
   return (
     <div className='flex py-4 space-x-4'>
       <div>
