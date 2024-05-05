@@ -21,9 +21,6 @@ const Canvas = async ({ params }) => {
     }
   })
 
-
-  console.log(canvasData)
-
   return (
     <div>
       <h1>Canvas Data</h1>

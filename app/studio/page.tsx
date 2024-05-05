@@ -4,6 +4,7 @@ import FolderForm from '@/components/folder/FolderForm'
 import { getSessionUser } from '@/lib/auth-helper';
 import CreateForm from '@/components/create/CreateForm';
 import LooseCanvasList from '@/components/canvas/LooseCanvasList';
+import Breadcrumbs from '@/components/studio/Breadcrumbs';
 
 
 const Studio = async () => {
@@ -16,7 +17,6 @@ const Studio = async () => {
   return (
     <div>
       <CreateForm />
-      <FolderForm />
       <FolderList />
       <LooseCanvasList />
     </div>

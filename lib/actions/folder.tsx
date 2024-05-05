@@ -4,6 +4,39 @@ import prisma from "@/lib/db";
 import { getSessionUser } from "@/lib/auth-helper";
 import { revalidatePath } from "next/cache";
 
+export const createFolderV2 = async (formData: { get: (arg0: string) => void; }) => {
+  const user = await getSessionUser()
+
+  const id = formData.get("id")
+  console.log("the id is", id)
+
+  if (id) {
+    const newSubFolder = await prisma.folder.create({
+      data: {
+        name: "New Subfolder Name",
+        isPublic: 'private',
+        UserId: user.id,
+        parentId: id 
+      }
+    });
+
+    console.log("child folder created")
+  } else {
+    const newFolder = await prisma.folder.create({
+      data: {
+        name: "My New Folder",
+        isPublic: 'private',
+        UserId: user.id,
+      }
+    });
+
+    console.log("Root folder created")
+  }
+
+  revalidatePath('/studio')
+
+}
+
 export const createFolder = async (formData: { get: (arg0: string) => void; }) => {
   const name = formData.get("name")
   const user = await getSessionUser()
@@ -23,23 +56,32 @@ export const deleteFolder = async (formData: { get: (arg0: string) => void; }) =
 }
 
 
-export async function getAllFoldersForUser( id: String ) {
-  try {
+export async function getAllFoldersForUser(id: String, folderId?: String) {
+  let folders;
 
-    const folders = await prisma.folder.findMany({
+  if (folderId) {
+    folders = await prisma.folder.findMany({
       where: {
-        UserId: id
+        parentId: folderId
       },
       orderBy: {
         createdAt: 'asc'
       },
     });
-
-    return folders;
-  } catch (error) {
-    console.error('Error fetching folders:', error);
-    return [];
+    console.log("folder id", folderId)
+  } else {
+    folders = await prisma.folder.findMany({
+      where: {
+        UserId: id,
+        parentId: null
+      },
+      orderBy: {
+        createdAt: 'asc'
+      },
+    });
   }
+
+  return folders;
 }
 
 
@@ -68,7 +110,7 @@ export async function createFolderForUser(id: String, folderName: String, isPubl
     const newFolder = await prisma.folder.create({
       data: {
         name: folderName,
-        UserId: id  
+        UserId: id
       }
     });
 

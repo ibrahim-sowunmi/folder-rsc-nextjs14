@@ -1,5 +1,6 @@
 import CanvasList from '@/components/canvas/CanvasList';
 import CreateForm from '@/components/create/CreateForm';
+import FolderList from '@/components/folder/FolderList';
 import { getSessionUser } from '@/lib/auth-helper'
 import React from 'react'
 
@@ -18,7 +19,8 @@ const Folder = async ({ params }) => {
   return (
     <div>
       <div>
-        <CreateForm />
+        <CreateForm params={params} />
+        <FolderList params={params} />
         <CanvasList params={params} />
       </div>
     </div>

@@ -4,6 +4,7 @@ import prisma from "@/lib/db";
 import { getSessionUser } from "@/lib/auth-helper";
 import { revalidatePath } from "next/cache";
 
+
 export const deleteCanvas = async (formData: { get: (arg0: string) => void; }) => {
   const id = formData.get("id")
   await prisma.canvas.delete({

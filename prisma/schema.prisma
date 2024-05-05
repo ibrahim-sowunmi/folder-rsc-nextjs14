@@ -30,34 +30,40 @@ enum isPublic {
 }
 
 model Canvas {
-  id        String   @id @default(cuid())
-  createdAt DateTime @default(now())
-  name      String   @db.VarChar(300)
-  isPublic  isPublic @default(private)  // Use enum type correctly
-  data      Json
+  id           String   @id @default(cuid())
+  createdAt    DateTime @default(now())
+  lastModified DateTime @updatedAt
+  name         String   @db.VarChar(300)
+  isPublic     isPublic @default(private) // Use enum type correctly
+  data         Json
 
-  UserId    String  
-  user      User    @relation(fields: [UserId], references: [id])
+  UserId String
+  user   User   @relation(fields: [UserId], references: [id])
 
-  FolderId  String?  
-  folder    Folder?  @relation(fields: [FolderId], references: [id])
+  FolderId String?
+  folder   Folder? @relation(fields: [FolderId], references: [id])
 
   @@map("canvases")
 }
 
 model Folder {
-  id        String    @id @default(cuid())
-  createdAt DateTime  @default(now())
-  name      String    @db.VarChar(300)
-  isPublic  isPublic  @default(private)  // Use enum type correctly
-  canvases  Canvas[]
+  id           String   @id @default(cuid())
+  createdAt    DateTime @default(now())
+  lastModified DateTime @updatedAt
+  name         String   @db.VarChar(300)
+  isPublic     isPublic @default(private)
+  canvases     Canvas[]
 
-  UserId    String
-  user      User     @relation(fields: [UserId], references: [id])
+  parentId     String?
+  parentFolder Folder? @relation("FolderHierarchy", fields: [parentId], references: [id])
+
+  subFolders Folder[] @relation("FolderHierarchy")
+
+  UserId String
+  user   User   @relation(fields: [UserId], references: [id])
 
   @@map("folders")
 }
-
 
 model Account {
   userId            String
