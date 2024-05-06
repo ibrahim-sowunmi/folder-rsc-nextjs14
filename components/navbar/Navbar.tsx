@@ -1,8 +1,9 @@
 // components/Navbar.tsx
 import React from 'react';
 import UserAvatar from './UserAvatar';
-import { SignIn } from './auth/signin-button';
+import { SignIn } from '../auth/signin-button';
 import { getSessionUser } from '@/lib/auth-helper';
+import SettingsModal from './SettingsModal';
 
 const Navbar: React.FC = async () => {
 
@@ -16,11 +17,9 @@ const Navbar: React.FC = async () => {
 
       <div className="navbar-end flex items-center space-x-4">
         {
-          isLoggedIn ?
-            <>
-              <UserAvatar />
-            </> : <SignIn />
+          isLoggedIn ? <UserAvatar /> : <SignIn />
         }
+        <SettingsModal />
       </div>
     </nav>
   );

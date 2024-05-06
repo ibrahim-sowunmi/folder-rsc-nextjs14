@@ -1,5 +1,5 @@
 import { auth } from "@/auth"
-import { SignOut } from "./auth/signout-button"
+import { SignOut } from "../auth/signout-button"
 import Link from "next/link"
 
 export default async function UserAvatar() {
@@ -28,11 +28,17 @@ export default async function UserAvatar() {
               <span>Studio</span>
             </Link>
           </li>
-          <li><a>Settings</a></li>
-          <li><SignOut /></li>
+          <li>
+            <a href='https://dashboard.stripe.com/login' target={'_blank'} >
+              <span>Dashboard</span>
+            </a>
+          </li>
+          <li>
+            <SignOut />
+          </li>
         </ul>
       </div>
-    </div>
+    </div >
 
   )
 }
